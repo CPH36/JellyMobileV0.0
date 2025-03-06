@@ -12,7 +12,9 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-video",
+      "react-native-video"
     ],
     "experiments": {
       "typedRoutes": true,

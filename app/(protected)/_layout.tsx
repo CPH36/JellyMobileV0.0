@@ -13,11 +13,11 @@ const DrawerLayout = () => {
 			<Drawer
 				screenOptions={{
 					drawerStyle: {
-						backgroundColor: '#121212', // 
+						backgroundColor: '#262626', // 
 					},
 					drawerLabelStyle: {
 						color: '#FFFFFF', // Bright white text for contrast
-						textShadowColor: '#121212', // Adjusted to neon blue glow for better dark mode
+						textShadowColor: '#121212', // Dark mode
 						textShadowOffset: { width: 1, height: 0 },
 						textShadowRadius: 12, // Stronger Glow Effect
 					},
@@ -43,7 +43,7 @@ const DrawerLayout = () => {
 				<Drawer.Screen
 					name="index"
 					options={{
-						headerTitle: 'Menu',
+						headerTitle: 'Home',
 						drawerLabel: ({ color }) => (
 							<Text style={{ color: '#b3b6b7', fontSize: 16 }}>Home</Text>
 						),
@@ -67,7 +67,7 @@ const DrawerLayout = () => {
 				<Drawer.Screen
 					name="faucet"
 					options={{
-						headerTitle: 'JellyFishCoin',
+						headerTitle: 'Faucet',
 						drawerLabel: ({ color }) => (
 							<Text style={{ color: '#b3b6b7', fontSize: 16 }}>Faucet</Text>
 						),

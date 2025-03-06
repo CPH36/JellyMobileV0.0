@@ -199,15 +199,15 @@ const styles = StyleSheet.create({
   priceText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#ff80ff",
+    color: "#B570C2",
     marginBottom: 20,
 	fontFamily:"monospace",
   },
   title: {			//Price Chart Header
-    fontSize: 25,
-    fontFamily:"mnonspace",
+    fontSize: 20,
+    fontFamily:"monospace",
     fontWeight: "bold",
-    color: "#0080ff",
+    color: "#656D9D",
     marginBottom: 20,
   },
   loadingText: {

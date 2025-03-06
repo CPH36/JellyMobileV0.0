@@ -7,8 +7,10 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  View,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
+import { Video } from 'expo-av';  // Importing Video component from expo-av
 
 const Page = () => {
   const [username, setUsername] = useState('admin');
@@ -24,8 +26,18 @@ const Page = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      {/* Image Above Header */}
-      <Image source={require('../assets/jelly_logo.png')} style={styles.image} />
+      {/* Video Background */}
+      <View style={styles.videoContainer}>
+        <Video
+          source={require('../assets/animated_background.mp4')}  // Replace with your video
+          style={styles.video}
+          resizeMode="cover"
+          isLooping
+          shouldPlay
+        />
+      </View>
+
+    
 
       {/* Login Header */}
       <Text style={styles.header}>Jelly Portal Login</Text>
@@ -60,18 +72,36 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#121212',
+    backgroundColor: 'transparent', // Make the background transparent so the video shows
+  },
+  videoContainer: {
+    position: 'absolute',  // Position the video container behind everything else
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  video: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',  // Cover the whole screen
   },
   image: {
     width: 120, // Adjust width
     height: 120, // Adjust height
     marginBottom: 15, // Space between image and header
+    zIndex: 1,  // Make sure the image stays on top of the video
   },
   header: {
     fontSize: 30,
-    color: 'white',
-    marginBottom: 40,
+    color: '#2EB8E2',
+    fontFamily:"monospace",
+    marginBottom: 350,
     fontWeight: 'bold',
+    zIndex: 1,  // Make sure the header stays on top of the video
+    textShadowColor: 'white',
+		textShadowOffset: { width: 0, height: 0 },
+		textShadowRadius: 12,
   },
   inputField: {
     width: '80%',
@@ -83,14 +113,16 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#1E1E1E', // Darker input field
     color: 'white', // White text
+    zIndex: 1,  // Make sure input fields stay on top of the video
   },
   button: {
-    marginTop: 20,
+    marginBottom: 0,
     alignItems: 'center',
     backgroundColor: '#007AFF',
     padding: 12,
     borderRadius: 4,
     width: '80%',
+    zIndex: 1,  // Make sure button stays on top of the video
   },
   buttonText: {
     color: '#fff',

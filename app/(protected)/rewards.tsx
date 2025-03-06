@@ -1,51 +1,91 @@
-import { useRouter } from 'expo-router'
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAuth, Role } from '../../context/AuthContext';
-import WithRole from '../../components/WithRole';
+import { useRouter } from 'expo-router';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
+import React from 'react';
 
-const Page = () => {
-	const { authState, onLogout } = useAuth();
-    const router = useRouter()
-	const onLogoutPressed = () => {
-		
-        onLogout!();
+const RewardsPage = () => {
+	const router = useRouter();
 
-        router.replace("../../login")
+	const onBackPressed = () => {
+		router.back(); // Navigate back
 	};
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Rewards</Text>
-			<Text style={styles.title}>Role: {authState?.role}</Text>
-			<Button title="Logout" onPress={onLogoutPressed} />
-			<View style={styles.separator} />
+		<ImageBackground source={require('../../assets/jelly_throne.png')} style={styles.background}>
+			<View style={styles.overlay}>
+				<Text style={styles.title}>🎁 Jelly Rewards 🎁</Text>
+				<Text style={styles.subtitle}>Claim your rewards and reign supreme!</Text>
 
-			<WithRole role={Role.ADMIN}>
-				<Text>Only visible for admins</Text>
-			</WithRole>
+				<TouchableOpacity style={styles.rewardButton}>
+					<Text style={styles.rewardText}>Coming Soon!</Text>
+				</TouchableOpacity>
 
-			<WithRole role={Role.USER}>
-				<Text>Only visible for users</Text>
-			</WithRole>
-		</View>
+				<TouchableOpacity style={styles.backButton} onPress={onBackPressed}>
+					<Text style={styles.backText}>Back</Text>
+				</TouchableOpacity>
+			</View>
+		</ImageBackground>
 	);
 };
+
 const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
+	background: {
 		flex: 1,
-		justifyContent: 'center'
+		resizeMode: 'cover',
+		width: '100%',
+		height: '100%',
 	},
-	separator: {
-		height: 1,
-		marginVertical: 30,
-		width: '80%'
+
+	overlay: {
+		flex: 1,
+		backgroundColor: 'rgba(0, 0, 0, 0.5)',
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingHorizontal: 20,
 	},
+
 	title: {
-		fontSize: 20,
-		fontWeight: 'bold'
-	}
+		fontSize: 28,
+		fontWeight: 'bold',
+		color: '#FFD700', // Gold color
+		textAlign: 'center',
+		marginBottom: 10,
+	},
+
+	subtitle: {
+		fontSize: 18,
+		color: '#FFF',
+		textAlign: 'center',
+		marginBottom: 20,
+	},
+
+	rewardButton: {
+		backgroundColor: '#00FF7F', // Green button
+		paddingVertical: 12,
+		paddingHorizontal: 40,
+		borderRadius: 10,
+		elevation: 5,
+		marginBottom: 20,
+	},
+
+	rewardText: {
+		color: '#000',
+		fontSize: 18,
+		fontWeight: 'bold',
+	},
+
+	backButton: {
+		backgroundColor: 'Blue', 
+		paddingVertical: 12,
+		paddingHorizontal: 40,
+		borderRadius: 10,
+		elevation: 5,
+	},
+
+	backText: {
+		color: '#FFF',
+		fontSize: 18,
+		fontWeight: 'bold',
+	},
 });
 
-
-export default Page;
+export default RewardsPage;
