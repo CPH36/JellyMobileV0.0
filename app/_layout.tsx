@@ -1,47 +1,38 @@
-import { Stack, useRouter, useSegments } from "expo-router";
-import { AuthProvider, useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
-import { DarkTheme, ThemeProvider } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
+import { Slot, useRouter, useSegments } from 'expo-router'
+import { useEffect } from 'react'
+import { AuthProvider, useAuth } from './provider/AuthProvider'
 
-const StackLayout = () => {
-  const { authState } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
+// Makes sure the user is authenticated before accessing protected pages
+const InitialLayout = () => {
+  const { session, initialized } = useAuth()
+  const segments = useSegments()
+  const router = useRouter()
 
   useEffect(() => {
-    const inAuthGroup = segments[0] === "(protected)";
+    if (!initialized) return
 
-    if (!authState?.authenticated && inAuthGroup) {
-      router.replace("./login");
-    } else if (authState?.authenticated === true) {
-      router.replace("./(protected)");
+    // Check if the path/url is in the (auth) group
+    const inAuthGroup = segments[0] === '(protected)'
+
+    if (session && !inAuthGroup) {
+      // Redirect authenticated users to the list page
+      router.replace('/(protected)/home')
+    } else if (!session) {
+      // Redirect unauthenticated users to the login page
+      router.replace('/')
     }
-  }, [authState]);
+  }, [session, initialized])
 
-  return (
-    <Stack
-      screenOptions={{
-        headerStyle: { backgroundColor: "#121212" }, // Dark mode background
-        headerTintColor: "#F5F5F5", // White text
-        contentStyle: { backgroundColor: "#000000" }, // Ensures dark mode throughout
-      }}
-    >
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="(protected)" options={{ headerShown: false }} />
-    </Stack>
-  );
-};
+  return <Slot />
+}
 
-const RootLayoutNav = () => {
+// Wrap the app with the AuthProvider
+const RootLayout = () => {
   return (
-    <AuthProvider>
-      <ThemeProvider value={DarkTheme}> {/* 🔹 Enables Dark Mode */}
-        <StatusBar style="light" /> {/* 🔹 White text in status bar */}
-        <StackLayout />
-      </ThemeProvider>
+    <AuthProvider >
+      <InitialLayout />
     </AuthProvider>
-  );
-};
+  )
+}
 
-export default RootLayoutNav;
+export default RootLayout

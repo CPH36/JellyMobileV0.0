@@ -1,36 +1,34 @@
 {
   "expo": {
-    "name": "jellyportal",
-    "slug": "jellyportal",
+    "name": "JellyApp",
+    "slug": "JellyApp",
     "version": "1.0.0",
     "newArchEnabled": true,
-    "scheme": "jellyportal",
+
+    "scheme": "JellyApp",
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font",
-      "expo-video",
-      "react-native-video"
-    ],
+    "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true,
+
       "tsconfigPaths": true
     },
+
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+
+    "userInterfaceStyle": "light",
+
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#121212"
+      "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
